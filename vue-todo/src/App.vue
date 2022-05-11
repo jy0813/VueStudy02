@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <TodoHeader />
-    <TodoInput />
-    <TodoList />
-    <TodoFooter />
+    <div class="todo_wrap">
+      <TodoHeader />
+      <TodoInput />
+      <TodoList />
+      <TodoFooter />
+    </div>
   </div>
 </template>
 
@@ -25,13 +27,9 @@ export default {
 </script>
 
 <style>
-input {
-  border-style: groove;
-  width: 200px;
-}
-
-button {
-  border-style: groove;
+.todo_wrap {
+  width: 800px;
+  margin: 0 auto;
 }
 
 .shadow {
