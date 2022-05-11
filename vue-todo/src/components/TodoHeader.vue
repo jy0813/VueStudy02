@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="todo_header">
     <h1>TodoList!</h1>
   </div>
 </template>

@@ -28,7 +28,7 @@ export default {
 
 <style>
 .todo_wrap {
-  width: 800px;
+  width: 80rem;
   margin: 0 auto;
 }
 
