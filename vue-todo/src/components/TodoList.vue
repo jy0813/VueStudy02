@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     removeTodo(item, i) {
-      localStorage.removeItem(item);
+      localStorage.removeItem(item.item);
       this.todoItems.splice(i, 1);
     },
     toggleComplete(item) {
