@@ -2,7 +2,7 @@
   <div id="app">
     <div class="todo_wrap">
       <TodoHeader />
-      <TodoInput />
+      <TodoInput @addTodoItem="addOneItem" />
       <TodoList :propsData="todoItems" />
       <TodoFooter />
     </div>
@@ -27,6 +27,13 @@ export default {
     TodoInput,
     TodoList,
     TodoFooter,
+  },
+  methods: {
+    addOneItem(todoItem) {
+      let obj = { completed: false, item: todoItem };
+      localStorage.setItem(todoItem, JSON.stringify(obj));
+      this.todoItems.push(obj);
+    },
   },
   created() {
     if (localStorage.length > 0) {
