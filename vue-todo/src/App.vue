@@ -3,7 +3,7 @@
     <div class="todo_wrap">
       <TodoHeader />
       <TodoInput @addTodoItem="addOneItem" />
-      <TodoList :propsData="todoItems" />
+      <TodoList :propsData="todoItems" @removeItem="removeOneItem" />
       <TodoFooter />
     </div>
   </div>
@@ -33,6 +33,10 @@ export default {
       let obj = { completed: false, item: todoItem };
       localStorage.setItem(todoItem, JSON.stringify(obj));
       this.todoItems.push(obj);
+    },
+    removeOneItem(item, i) {
+      localStorage.removeItem(item.item);
+      this.todoItems.splice(i, 1);
     },
   },
   created() {
