@@ -1,7 +1,7 @@
 <template>
   <div class="todo_list">
     <ul>
-      <li class="shadow" v-for="(item, i) in todoItems" :key="item.item">
+      <li class="shadow" v-for="(item, i) in propsData" :key="item.item">
         <button
           class="check_btn"
           :class="{ completed: item.completed }"
@@ -20,21 +20,8 @@
 
 <script>
 export default {
-  data() {
-    return {
-      todoItems: [],
-    };
-  },
-  created() {
-    if (localStorage.length > 0) {
-      for (let i = 0; i < localStorage.length; i++) {
-        if (localStorage.key(i) !== "loglevel:webpack-dev-server") {
-          this.todoItems.push(
-            JSON.parse(localStorage.getItem(localStorage.key(i)))
-          );
-        }
-      }
-    }
+  props: {
+    propsData: Array,
   },
   methods: {
     removeTodo(item, i) {
