@@ -8,7 +8,7 @@
         @removeItem="removeOneItem"
         @toggleItem="toggleOneItem"
       />
-      <TodoFooter />
+      <TodoFooter @clearAll="clearAllItems" />
     </div>
   </div>
 </template>
@@ -36,7 +36,9 @@ export default {
     addOneItem(todoItem) {
       let obj = { completed: false, item: todoItem };
       localStorage.setItem(todoItem, JSON.stringify(obj));
-      this.todoItems.push(obj);
+      if (!this.todoItems.some((data) => data.item == todoItem)) {
+        this.todoItems.push(obj);
+      }
     },
     removeOneItem(item, i) {
       localStorage.removeItem(item.item);
@@ -47,6 +49,10 @@ export default {
       // localStorage에 갱신
       localStorage.removeItem(item.item);
       localStorage.setItem(item.item, JSON.stringify(item));
+    },
+    clearAllItems() {
+      localStorage.clear();
+      this.todoItems = [];
     },
   },
   created() {
