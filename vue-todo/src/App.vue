@@ -3,7 +3,11 @@
     <div class="todo_wrap">
       <TodoHeader />
       <TodoInput @addTodoItem="addOneItem" />
-      <TodoList :propsData="todoItems" @removeItem="removeOneItem" />
+      <TodoList
+        :propsData="todoItems"
+        @removeItem="removeOneItem"
+        @toggleItem="toggleOneItem"
+      />
       <TodoFooter />
     </div>
   </div>
@@ -37,6 +41,12 @@ export default {
     removeOneItem(item, i) {
       localStorage.removeItem(item.item);
       this.todoItems.splice(i, 1);
+    },
+    toggleOneItem(item, i) {
+      this.todoItems[i].completed = !this.todoItems[i].completed;
+      // localStorage에 갱신
+      localStorage.removeItem(item.item);
+      localStorage.setItem(item.item, JSON.stringify(item));
     },
   },
   created() {

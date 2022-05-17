@@ -5,7 +5,7 @@
         <button
           class="check_btn"
           :class="{ completed: item.completed }"
-          @click="toggleComplete(item)"
+          @click="toggleComplete(item, i)"
         >
           <i class="fas fa-check"></i>
         </button>
@@ -27,11 +27,8 @@ export default {
     removeTodo(item, i) {
       this.$emit("removeItem", item, i);
     },
-    toggleComplete(item) {
-      item.completed = !item.completed;
-      // localStorage에 갱신
-      localStorage.removeItem(item.item);
-      localStorage.setItem(item.item, JSON.stringify(item));
+    toggleComplete(item, i) {
+      this.$emit("toggleItem", item, i);
     },
   },
 };
