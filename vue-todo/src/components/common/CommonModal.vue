@@ -10,15 +10,6 @@
           <div class="modal-body">
             <slot name="body"> default body </slot>
           </div>
-
-          <div class="modal-footer">
-            <slot name="footer">
-              default footer
-              <button class="modal-default-button" @click="$emit('close')">
-                OK
-              </button>
-            </slot>
-          </div>
         </div>
       </div>
     </div>
@@ -29,7 +20,7 @@
 export default {};
 </script>
 
-<style scoped>
+<style>
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -59,12 +50,15 @@ export default {};
 }
 
 .modal-header h3 {
+  position: relative;
   margin-top: 0;
-  color: #42b983;
+  color: rgb(216, 30, 71);
+  font-size: 3rem;
 }
 
 .modal-body {
   margin: 20px 0;
+  font-size: 2rem;
 }
 
 .modal-default-button {

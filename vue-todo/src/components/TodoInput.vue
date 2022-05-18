@@ -3,14 +3,19 @@
     <div class="input_area shadow">
       <div class="input_box">
         <input type="text" v-model="newTodoItem" @keyup.enter="addTodo" />
-        <button @click="addTodo" class="shadow">
+        <button @click="addTodo" class="addBtn shadow">
           <i class="fas fa-plus"></i>
         </button>
       </div>
     </div>
-    <button id="show-modal" @click="showModal = true">Show Modal</button>
     <Modal v-if="showModal" @close="showModal = false">
-      <h3 slot="header">custom header</h3>
+      <h3 slot="header">
+        경고!
+        <button class="closeModalBtn" @click="showModal = false">
+          <i class="fas fa-times"></i>
+        </button>
+      </h3>
+      <p slot="body">입력값을 넣어주세요!</p>
     </Modal>
   </div>
 </template>
@@ -19,13 +24,14 @@
 import Modal from "./common/CommonModal.vue";
 
 export default {
+  name: "TodoInput",
   data() {
     return {
       newTodoItem: "",
       showModal: false,
     };
   },
-  component: {
+  components: {
     Modal,
   },
   methods: {
@@ -35,7 +41,7 @@ export default {
         this.$emit("addTodoItem", this.newTodoItem);
         this.clearInput();
       } else {
-        console.log("error");
+        this.showModal = !this.showModal;
       }
     },
     clearInput() {
@@ -70,12 +76,19 @@ input {
   outline: none;
 }
 
-button {
+.addBtn {
   width: 12rem;
   border: 0.1rem solid #000;
   border-radius: 0 0.5rem 0.5rem 0;
   background: #000;
   font-size: 1.6rem;
   color: #fff;
+}
+
+.closeModalBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #000;
 }
 </style>
