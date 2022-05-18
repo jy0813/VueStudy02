@@ -8,15 +8,25 @@
         </button>
       </div>
     </div>
+    <button id="show-modal" @click="showModal = true">Show Modal</button>
+    <Modal v-if="showModal" @close="showModal = false">
+      <h3 slot="header">custom header</h3>
+    </Modal>
   </div>
 </template>
 
 <script>
+import Modal from "./common/CommonModal.vue";
+
 export default {
   data() {
     return {
       newTodoItem: "",
+      showModal: false,
     };
+  },
+  component: {
+    Modal,
   },
   methods: {
     addTodo() {
@@ -24,6 +34,8 @@ export default {
         // 저장하는 로직 api
         this.$emit("addTodoItem", this.newTodoItem);
         this.clearInput();
+      } else {
+        console.log("error");
       }
     },
     clearInput() {
