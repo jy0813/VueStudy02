@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     addOneItem(todoItem) {
-      let obj = { completed: false, item: todoItem };
+      const obj = { completed: false, item: todoItem };
       localStorage.setItem(todoItem, JSON.stringify(obj));
       if (!this.todoItems.some((data) => data.item == todoItem)) {
         this.todoItems.push(obj);
