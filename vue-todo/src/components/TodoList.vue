@@ -1,6 +1,6 @@
 <template>
   <div class="todo_list">
-    <ul>
+    <transition-group name="list" tag="ul">
       <li class="shadow" v-for="(item, i) in propsData" :key="item.item">
         <button
           class="check_btn"
@@ -14,7 +14,7 @@
           <i class="fas fa-trash"></i>
         </button>
       </li>
-    </ul>
+    </transition-group>
   </div>
 </template>
 
@@ -76,5 +76,15 @@ li {
   background: #000;
   font-size: 1.6rem;
   color: #fff;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s;
+}
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>
