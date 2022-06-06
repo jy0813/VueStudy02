@@ -1,7 +1,11 @@
 <template>
   <div class="todo_list">
     <transition-group name="list" tag="ul">
-      <li class="shadow" v-for="(item, i) in propsData" :key="item.item">
+      <li
+        class="shadow"
+        v-for="(item, i) in this.$store.state.todoItems"
+        :key="item.item"
+      >
         <button
           class="check_btn"
           :class="{ completed: item.completed }"

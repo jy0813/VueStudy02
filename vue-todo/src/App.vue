@@ -22,9 +22,7 @@ import TodoFooter from "./components/TodoFooter.vue";
 export default {
   name: "App",
   data() {
-    return {
-      todoItems: [],
-    };
+    return {};
   },
   components: {
     TodoHeader,
@@ -54,17 +52,6 @@ export default {
       localStorage.clear();
       this.todoItems = [];
     },
-  },
-  created() {
-    if (localStorage.length > 0) {
-      for (let i = 0; i < localStorage.length; i++) {
-        if (localStorage.key(i) !== "loglevel:webpack-dev-server") {
-          this.todoItems.push(
-            JSON.parse(localStorage.getItem(localStorage.key(i)))
-          );
-        }
-      }
-    }
   },
 };
 </script>

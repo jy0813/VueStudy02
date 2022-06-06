@@ -1,6 +1,6 @@
 <template>
   <div class="todo_header">
-    <h1>TodoList!</h1>
+    <h1>{{ this.$store.state.headerText }}</h1>
   </div>
 </template>
 
