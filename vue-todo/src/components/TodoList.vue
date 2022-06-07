@@ -3,18 +3,18 @@
     <transition-group name="list" tag="ul">
       <li
         class="shadow"
-        v-for="(item, i) in this.$store.state.todoItems"
+        v-for="(item, i) in this.storedTodoItems"
         :key="item.item"
       >
         <button
           class="check_btn"
           :class="{ completed: item.completed }"
-          @click="toggleComplete(item, i)"
+          @click="toggleComplete({ item, i })"
         >
           <i class="fas fa-check"></i>
         </button>
         <span :class="{ text_completed: item.completed }">{{ item.item }}</span>
-        <button class="remove_btn" @click="removeTodo(item, i)">
+        <button class="remove_btn" @click="removeTodo({ item, i })">
           <i class="fas fa-trash"></i>
         </button>
       </li>
@@ -23,14 +23,30 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
   methods: {
-    removeTodo(todoItem, index) {
-      this.$store.commit("removeOneItem", { todoItem, index });
-    },
-    toggleComplete(todoItem, index) {
-      this.$store.commit("toggleOneItem", { todoItem, index });
-    },
+    ...mapMutations({
+      removeTodo: "removeOneItem",
+      toggleComplete: "toggleOneItem",
+    }),
+    // removeTodo(todoItem, index) {
+    //   this.$store.commit("removeOneItem", { todoItem, index });
+    // },
+    // toggleComplete(todoItem, index) {
+    //   this.$store.commit("toggleOneItem", { todoItem, index });
+    // },
+  },
+  computed: {
+    ...mapGetters(["storedTodoItems"]),
+  },
+  mounted() {
+    this.$nextTick(function () {
+      this.storedTodoItems.sort(function (a, b) {
+        return a.date - b.date;
+      });
+    });
   },
 };
 </script>

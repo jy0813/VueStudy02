@@ -1,7 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import getDate from "../assets/js/common";
 
 Vue.use(Vuex);
+Vue.use(getDate);
 
 const storage = {
   fetch() {
@@ -22,10 +24,22 @@ export const store = new Vuex.Store({
     headerText: "TODOLIST!",
     todoItems: storage.fetch(),
   },
+  getters: {
+    storedTodoItems(state) {
+      return state.todoItems;
+    },
+  },
   mutations: {
     addOneItem(state, todoItem) {
-      const obj = { completed: false, item: todoItem };
+      const obj = {
+        completed: false,
+        item: todoItem,
+        date: `${getDate().year}${getDate().month}${getDate().day}${
+          getDate().hour
+        }${getDate().minutes}${getDate().seconds}`,
+      };
       localStorage.setItem(todoItem, JSON.stringify(obj));
+      state.todoItems.sort((date) => date.item == todoItem);
       if (!state.todoItems.some((data) => data.item == todoItem)) {
         state.todoItems.push(obj);
       } else {
@@ -33,18 +47,15 @@ export const store = new Vuex.Store({
       }
     },
     removeOneItem(state, payload) {
-      localStorage.removeItem(payload.todoItem.item);
-      state.todoItems.splice(payload.index, 1);
+      localStorage.removeItem(payload.item.item);
+      state.todoItems.splice(payload.i, 1);
     },
     toggleOneItem(state, payload) {
-      state.todoItems[payload.index].completed =
-        !state.todoItems[payload.index].completed;
+      state.todoItems[payload.i].completed =
+        !state.todoItems[payload.i].completed;
       // localStorage에 갱신
-      localStorage.removeItem(payload.todoItem.item);
-      localStorage.setItem(
-        payload.todoItem.item,
-        JSON.stringify(payload.todoItem)
-      );
+      localStorage.removeItem(payload.item.item);
+      localStorage.setItem(payload.item.item, JSON.stringify(payload.item));
     },
     clearAllItems(state) {
       localStorage.clear();
