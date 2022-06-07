@@ -38,7 +38,8 @@ export default {
     addTodo() {
       if (this.newTodoItem !== "") {
         // 저장하는 로직 api
-        this.$emit("addTodoItem", this.newTodoItem);
+        const text = this.newTodoItem.trim();
+        this.$store.commit("addOneItem", text);
         this.clearInput();
       } else {
         this.showModal = !this.showModal;

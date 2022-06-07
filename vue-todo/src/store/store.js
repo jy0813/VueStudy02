@@ -22,4 +22,33 @@ export const store = new Vuex.Store({
     headerText: "TODOLIST!",
     todoItems: storage.fetch(),
   },
+  mutations: {
+    addOneItem(state, todoItem) {
+      const obj = { completed: false, item: todoItem };
+      localStorage.setItem(todoItem, JSON.stringify(obj));
+      if (!state.todoItems.some((data) => data.item == todoItem)) {
+        state.todoItems.push(obj);
+      } else {
+        alert("중복된 리스트 입니다.");
+      }
+    },
+    removeOneItem(state, payload) {
+      localStorage.removeItem(payload.todoItem.item);
+      state.todoItems.splice(payload.index, 1);
+    },
+    toggleOneItem(state, payload) {
+      state.todoItems[payload.index].completed =
+        !state.todoItems[payload.index].completed;
+      // localStorage에 갱신
+      localStorage.removeItem(payload.todoItem.item);
+      localStorage.setItem(
+        payload.todoItem.item,
+        JSON.stringify(payload.todoItem)
+      );
+    },
+    clearAllItems(state) {
+      localStorage.clear();
+      state.todoItems = [];
+    },
+  },
 });
